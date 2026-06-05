@@ -2,6 +2,7 @@ package professor.example.ms.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import professor.example.ms.enums.CategoriaTitulacao;
  
 @Entity
 @Table(name = "professor_titulacao")
@@ -20,9 +21,9 @@ public class ProfessorTitulacao {
     @JoinColumn(name = "professor_id", nullable = false)
     private Professor professor;
  
-    // @Enumerated(EnumType.STRING)
-    // @Column(name = "categoria", nullable = false)
-    // private CategoriaTitulacao categoria;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "categoria", nullable = false)
+    private CategoriaTitulacao categoria;
  
     @Column(name = "instituicao", nullable = false)
     private String instituicao;

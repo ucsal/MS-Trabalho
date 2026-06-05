@@ -6,6 +6,8 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import professor.example.ms.enums.Status;
  
 @Entity
 @Table(name = "professor")
@@ -35,9 +37,9 @@ public class Professor {
     @Column(name = "escola_id", nullable = false)
     private Long escolaId;
  
-    // @Enumerated(EnumType.STRING)
-    // @Column(name = "status", nullable = false)
-    // private Status status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private Status status;
  
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -45,11 +47,11 @@ public class Professor {
     @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProfessorTitulacao> titulacoes = new ArrayList<>();
  
-    // @PrePersist
-    // public void prePersist() {
-    //     this.createdAt = LocalDateTime.now();
-    //     if (this.status == null) {
-    //         this.status = Status.ATIVO;
-    //     }
-    // }
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+        if (this.status == null) {
+            this.status = Status.ATIVO;
+        }
+    }
 }
