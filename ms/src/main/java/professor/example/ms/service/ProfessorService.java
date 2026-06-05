@@ -1,9 +1,9 @@
 package professor.example.ms.service;
 
-import professor.example.ms.dto.*;
+import professor.example.ms.DTO.*;
 import professor.example.ms.enums.Status;
-import com.ucsal.professorservice.exception.BusinessException;
-import professor.example.ms.exception.ResourceNotFoundException;
+import professor.example.ms.exceptions.BusinessException;
+import professor.example.ms.exceptions.ResourceNotFoundException;
 import professor.example.ms.model.Professor;
 import professor.example.ms.model.ProfessorTitulacao;
 import professor.example.ms.repository.ProfessorRepository;
