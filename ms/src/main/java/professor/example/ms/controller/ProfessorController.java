@@ -32,6 +32,12 @@ public class ProfessorController {
     public ResponseEntity<ProfessorResponseDTO> inativar(@PathVariable Long id) {
         return ResponseEntity.ok(professorService.inativar(id));
     }
+
+    @PatchMapping("/{id}/ativar")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ProfessorResponseDTO> ativar(@PathVariable Long id) {
+        return ResponseEntity.ok(professorService.ativar(id));
+    }
  
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")

@@ -11,6 +11,7 @@ import professor.example.ms.repository.ProfessorTitulacaoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.ArrayList;
  
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,6 +55,18 @@ public class ProfessorService {
             throw new BusinessException("Professor já está inativo.");
         }
         professor.setStatus(Status.INATIVO);
+        return toResponse(professorRepository.save(professor));
+    }
+
+    // ─── ADMIN: Ativar professor ────────────────────────────────────────────
+
+    @Transactional
+    public ProfessorResponseDTO ativar(Long id) {
+        Professor professor = buscarPorId(id);
+        if (professor.getStatus() == Status.ATIVO) {
+            throw new BusinessException("Professor já está ativo.");
+        }
+        professor.setStatus(Status.ATIVO);
         return toResponse(professorRepository.save(professor));
     }
  
@@ -103,8 +116,7 @@ public class ProfessorService {
     }
  
     private ProfessorResponseDTO toResponse(Professor p) {
-        List<TitulacaoResponseDTO> titulacoes = p.getTitulacoes().stream()
-                .map(t -> TitulacaoResponseDTO.builder()
+        List<TitulacaoResponseDTO> titulacoes = p.getTitulacoes() == null ? new ArrayList<>() : p.getTitulacoes().stream().map(t -> TitulacaoResponseDTO.builder()
                         .id(t.getId())
                         .categoria(t.getCategoria())
                         .instituicao(t.getInstituicao())
@@ -112,6 +124,7 @@ public class ProfessorService {
                         .anoConclusao(t.getAnoConclusao())
                         .build())
                 .collect(Collectors.toList());
+
  
         return ProfessorResponseDTO.builder()
                 .id(p.getId())

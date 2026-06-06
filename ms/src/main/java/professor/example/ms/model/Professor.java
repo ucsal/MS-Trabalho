@@ -43,7 +43,7 @@ public class Professor {
  
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
- 
+    
     @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProfessorTitulacao> titulacoes = new ArrayList<>();
  
