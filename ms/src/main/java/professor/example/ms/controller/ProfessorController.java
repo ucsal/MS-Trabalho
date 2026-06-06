@@ -22,31 +22,31 @@ public class ProfessorController {
     // ─── ADMIN ────────────────────────────────────────────────────────────────
  
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProfessorResponseDTO> cadastrar(@RequestBody @Valid ProfessorRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(professorService.cadastrar(dto));
     }
  
     @PatchMapping("/{id}/inativar")
-    @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProfessorResponseDTO> inativar(@PathVariable Long id) {
         return ResponseEntity.ok(professorService.inativar(id));
     }
 
     @PatchMapping("/{id}/ativar")
-    @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProfessorResponseDTO> ativar(@PathVariable Long id) {
         return ResponseEntity.ok(professorService.ativar(id));
     }
  
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<ProfessorResponseDTO>> listarTodos() {
         return ResponseEntity.ok(professorService.listarTodos());
     }
  
     @GetMapping("/status/{status}")
-    @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<ProfessorResponseDTO>> listarPorStatus(@PathVariable Status status) {
         return ResponseEntity.ok(professorService.listarPorStatus(status));
     }
@@ -54,13 +54,12 @@ public class ProfessorController {
     // ─── PROFESSOR AUTENTICADO ────────────────────────────────────────────────
  
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'PROFESSOR')")
+    // @PreAuthorize("hasAnyRole('ADMIN', 'PROFESSOR')")
     public ResponseEntity<ProfessorResponseDTO> buscar(@PathVariable Long id) {
         return ResponseEntity.ok(professorService.buscar(id));
     }
  
     @PostMapping("/{id}/titulacoes")
-    @PreAuthorize("hasAnyRole('ADMIN', 'PROFESSOR')")
     public ResponseEntity<ProfessorResponseDTO> adicionarTitulacao(
             @PathVariable Long id,
             @RequestBody @Valid TitulacaoRequestDTO dto) {
